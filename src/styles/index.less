@@ -1,0 +1,49 @@
+// 全局样式 在main.js中引入即可
+// vant-ui有自已的样式
+// 如果这个项目需要去覆盖vant-ui的样式，统一写在这里
+.van-nav-bar{
+  background-color: #3196fa;
+  .van-nav-bar__title{
+      color:#fff;
+  }
+  // 搜索
+  .van-nav-bar__text{
+      color:#fff;
+  }
+  .van-icon{
+      color:#fff;
+  }
+}
+#app{
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+.container{
+  width: 100%;
+  height: 100%;
+}
+// .index 是home/index.vue组件的根元素的类名
+.index {
+  height: 100%;
+  .van-tabs {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      .van-tabs__content {
+          flex:1;
+          overflow: hidden;
+      }
+  }
+  .van-tab__pane{
+      height: 100%;
+  }
+  // .scroll-wrapper是home/ArticleList.vue组件的根元素的类名
+  .scroll-wrapper{
+      overflow:auto;
+      height: 100%;
+  }
+}

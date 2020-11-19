@@ -1,23 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-
+import Login from '../views/login'
+import LayoutIndex from '@/views/layout' // /index.vue是可以省略的
+import HomeIndex from '@/views/home'
+import VideoIndex from '@/views/video'
 Vue.use(VueRouter)
 
 const routes = [
+  { path: '/login', component: Login },
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    component: LayoutIndex,
+    // 嵌套路由
+    // 当访问http://localhost:8080/#/user 时
+    //   把UserIndex组件放在 LayoutIndex组中的router-view中去
+    children: [
+      { path: '', component: HomeIndex },
+      { path: '/user', component: () => import('@/views/user/index') },
+      { path: '/video', component: VideoIndex }
+    ]
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+  { path: '/search', component: () => import('@/views/search/index') }
 ]
 
 const router = new VueRouter({
