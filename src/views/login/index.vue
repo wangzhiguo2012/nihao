@@ -3,7 +3,7 @@
     <van-nav-bar
       title="你好"
     />
-    <van-form @submit="onSubmit">
+    <van-form>
       <van-field
         v-model="userInfo.mobile"
         name="用户名"

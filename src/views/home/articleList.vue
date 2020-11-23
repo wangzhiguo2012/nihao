@@ -1,0 +1,89 @@
+<template>
+  <div class="scroll-wrapper">
+    <van-pull-refresh v-model="isLoadingNew" @refresh="onRefresh">
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >
+        <van-cell v-for="(item, idx) in list" :key="idx" :title="item.title">
+          <div slot="label">
+            <van-grid :column-num="item.cover.images.length">
+              <van-grid-item v-for="(img, idx) in item.cover.images" :key="idx">
+                <van-image lazy-load :src="img" />
+              </van-grid-item>
+            </van-grid>
+
+            <!-- 文字说明 -->
+            <div class="meta">
+              <span>{{ item.aut_name }}</span>
+              <span>{{ item.comm_count }}评论</span>
+              <span>{{ item.pubdate | relativeTime }}</span>
+              <span class="close" @click="hClose(item)" v-if="$store.state.tokenInfo.token">
+                <van-icon name="cross"></van-icon>
+              </span>
+            </div>
+          </div>
+        </van-cell>
+      </van-list>
+    </van-pull-refresh>
+  </div>
+</template>
+
+<script>
+import { getArticles } from '../../api/article.js'
+export default {
+  name: 'ArticleList',
+  props: ['channel'],
+  data () {
+    return {
+      list: [],
+      loading: false,
+      finished: false,
+      timestamp: null,
+      count: 0,
+      isLoading: false,
+      isLoadingNew: false
+    }
+  },
+  methods: {
+    async onLoad () {
+      if (!this.timestamp) {
+        this.timestamp = Date.now()
+      }
+      const result = await getArticles(this.channel.id, Date.now())
+      const arr = result.data.data.results
+      this.timestamp = result.data.data.pre_timestamp
+      this.list = this.list.concat(arr)
+      this.loading = false
+      if (arr.length === 0) {
+        this.finished = true
+      }
+    },
+    async onRefresh () {
+      const result = await getArticles(this.channel.id, Date.now())
+      const arr = result.data.data.results
+      this.list.unshift(...arr)
+      this.isLoadingNew = false
+      this.$toast.success('加载成功' + arr.length + '条')
+    },
+    hClose (article) {
+      // 向父级件index.vue抛出一个事件。 当父组件收到时这个事件时，去把弹层打开。
+      this.$emit('showMoreAction', article.art_id.toString())
+    }
+  },
+  computed: {},
+  created () {},
+  mounted () {}
+}
+</script>
+.meta {
+  span{
+    margin-right: 10px;
+  }
+   .close{
+    margin-left:auto;
+  }
+}
+<style scoped lang='less'></style>

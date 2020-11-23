@@ -1,7 +1,16 @@
 import axios from 'axios'
 import store from '@/store/index.js'
+import JSONBig from 'json-bigint'
 const instance1 = axios.create({
-  baseURL: 'http://ttapi.research.itcast.cn'
+  baseURL: 'http://ttapi.research.itcast.cn',
+  transformResponse: [function (data) {
+    try {
+      return JSONBig.parse(data)
+    } catch (err) {
+      console.log('JSONBig转换出错', err)
+      return data
+    }
+  }]
 })
 instance1.interceptors.request.use(function (config) {
   const token = store.state.tokenInfo.token

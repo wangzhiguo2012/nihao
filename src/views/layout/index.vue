@@ -3,7 +3,7 @@
     <van-nav-bar
       title="你好"
       right-text="搜索"
-      left-arrow
+      fixed
       @click-right="onClickRight"
     />
     <router-view></router-view>
@@ -22,6 +22,11 @@ export default {
   props: { },
   data () {
     return { }
+  },
+  methods: {
+    onClickRight () {
+
+    }
   },
   computed: { },
   created () { },
