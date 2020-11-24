@@ -69,21 +69,33 @@ export default {
       this.$toast.success('加载成功' + arr.length + '条')
     },
     hClose (article) {
-      // 向父级件index.vue抛出一个事件。 当父组件收到时这个事件时，去把弹层打开。
       this.$emit('showMoreAction', article.art_id.toString())
     }
   },
   computed: {},
-  created () {},
+  created () {
+    this.$eventBus.$on('delArticle', obj => {
+      const { channelId, articleId } = obj
+      if (channelId !== this.channel.id) {
+        return
+      }
+      const idx = this.list.findIndex(it => it.art_id.toString() === articleId)
+      if (idx !== -1) {
+        this.list.splice(idx, 1)
+      }
+    })
+  },
   mounted () {}
 }
 </script>
+<style scoped lang='less'>
 .meta {
-  span{
-    margin-right: 10px;
+  display:flex;
+  span {
+    margin-right:10px;
   }
-   .close{
+  .close{
     margin-left:auto;
   }
 }
-<style scoped lang='less'></style>
+</style>
