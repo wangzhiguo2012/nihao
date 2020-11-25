@@ -20,3 +20,12 @@ export const addChannel = channels => {
     }
   })
 }
+export const deleteChannel = channelId => {
+  return ajax({
+    method: 'DELETE',
+    url: '/app/v1_0/user/channels',
+    data: {
+      channels: [channelId]
+    }
+  })
+}

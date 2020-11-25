@@ -20,7 +20,7 @@
     </van-popup>
       <van-action-sheet v-model="showChannelEdit" title="频道管理">
       <channel-edit :channels="channels"  @close="hCloseChannelEdit()"
-     @updateCurChannel="hUpdateCurChannel" :activeIndex="activeIndex"></channel-edit>
+     @updateCurChannel="hUpdateCurChannel" @updateCurIndex="hUpdateCurIndex" :activeIndex="activeIndex"></channel-edit>
     </van-action-sheet>
   </div>
 </template>
@@ -70,7 +70,6 @@ export default {
         articleId: this.articleId,
         channelId: this.channels[this.activeIndex].id
       }
-      console.log(eventObj)
       this.$eventBus.$emit('delArticle', eventObj)
     },
     async hDislike () {
@@ -92,6 +91,9 @@ export default {
     hUpdateCurChannel (channel) {
       const idx = this.channels.findIndex(it => it.id === channel.id)
       this.activeIndex = idx
+    },
+    hUpdateCurIndex (index) {
+      this.activeIndex = index
     }
   }
 }
