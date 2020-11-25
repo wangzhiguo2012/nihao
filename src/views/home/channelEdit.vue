@@ -8,7 +8,7 @@
       </van-cell>
       <van-grid>
         <van-grid-item
-          v-for="item in channels"
+          v-for="(item,idx) in channels"
           :key="item.id"
           @click="hClickMyChannel(item)"
           :class="{ cur: idx === activeIndex }"
@@ -45,11 +45,18 @@ import {
 } from '../../api/channel.js'
 export default {
   name: 'channelEdit',
-  channels: {
-    type: Array,
-    required: false,
-    default: () => {
-      return [{ id: 0, name: 'ab' }]
+  props: {
+    channels: {
+      type: Array,
+      required: false,
+      default: () => {
+        return [{ id: 0, name: 'ab' }]
+      }
+    },
+    activeIndex: {
+      type: Number,
+      required: false,
+      default: 100
     }
   },
   activeIndex: {

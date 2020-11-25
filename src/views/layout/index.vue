@@ -4,7 +4,7 @@
       title="你好"
       right-text="搜索"
       fixed
-      @click-right="onClickRight"
+       @click-right="hRearch"
     />
     <router-view></router-view>
     <van-tabbar route>
@@ -24,8 +24,8 @@ export default {
     return { }
   },
   methods: {
-    onClickRight () {
-
+    hRearch () {
+      this.$router.push('/search')
     }
   },
   computed: { },
