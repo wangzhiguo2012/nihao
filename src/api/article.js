@@ -30,3 +30,40 @@ export const reportArticle = (articleId, type) => {
     }
   })
 }
+export const getArticle = id => {
+  return ajax({
+    method: 'GET',
+    url: '/app/v1_0/articles/' + id
+  })
+}
+export const deleteLike = id => {
+  return ajax({
+    method: 'DELETE',
+    url: '/app/v1_0/article/likings/' + id
+  })
+}
+
+export const addLike = id => {
+  return ajax({
+    method: 'POST',
+    url: '/app/v1_0/article/likings',
+    data: {
+      target: id
+    }
+  })
+}
+export const deleteDisLike = id => {
+  return ajax({
+    method: 'DELETE',
+    url: '/app/v1_0/article/dislikes/' + id
+  })
+}
+export const addDisLike = id => {
+  return ajax({
+    method: 'POST',
+    url: '/app/v1_0/article/dislikes',
+    data: {
+      target: id
+    }
+  })
+}
