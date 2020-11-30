@@ -36,7 +36,7 @@ export default {
   data () {
     return {
       showMoreAction: false,
-      showChannelEdit: true,
+      showChannelEdit: false,
       // 频道列表
       channels: [],
       articleId: null,

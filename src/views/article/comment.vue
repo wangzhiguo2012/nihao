@@ -22,7 +22,9 @@
             <span style="margin-right: 10px">{{
               item.pubdate | relativeTime
             }}</span>
-            <van-button size="mini" type="default">回复</van-button>
+            <van-button size="mini" type="default" @click="hShowReply(item)"
+              >回复{{ item.reply_count }}</van-button
+            >
           </p>
         </div>
         <van-icon
@@ -56,7 +58,7 @@
 </template>
 
 <script>
-import CommentReply from './commentReply'
+import CommentReply from './commentReply.vue'
 import {
   addComment,
   getComments,
@@ -73,7 +75,7 @@ export default {
   },
   data () {
     return {
-      isReplyShow: true,
+      isReplyShow: false,
       offset: null,
       content: '',
       list: [],
@@ -107,6 +109,7 @@ export default {
         target: this.articleId,
         content: this.content
       })
+      result.data.data.new_obj.is_liking = false
       this.list.unshift(result.data.data.new_obj)
       this.content = ''
     },

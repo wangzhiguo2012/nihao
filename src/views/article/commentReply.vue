@@ -1,6 +1,6 @@
 <template>
 <div class="article-comments">
-    <van-nav-bar :title="comment.reply_count + '条回复'">
+   <van-nav-bar :title="comment.reply_count + '条回复'">
       <van-icon @click="$emit('close')" slot="left" name="cross" />
     </van-nav-bar>
     <van-cell title="当前评论">
@@ -14,7 +14,7 @@
       />
       <span style="color: #466b9d;" slot="title">{{comment.aut_name}}</span>
       <div slot="label">
-        <p style="color: #363636;">{{comment.aut_name}}</p>
+        <p style="color: #363636;">{{comment.content}}</p>
         <p>
           <span style="margin-right: 10px;">{{comment.pubdate | relativeTime}}</span>
           <van-button
@@ -75,15 +75,6 @@
 import { getComments, addComment } from '@/api/comment.js'
 export default {
   name: 'CommentReply',
-  data () {
-    return {
-      content: '',
-      offset: null,
-      list: [],
-      loading: false,
-      finished: false
-    }
-  },
   props: {
     comment: {
       type: Object,
@@ -92,6 +83,15 @@ export default {
     articleId: {
       type: String,
       required: true
+    }
+  },
+  data () {
+    return {
+      content: '',
+      offset: null,
+      list: [],
+      loading: false,
+      finished: false
     }
   },
   methods: {

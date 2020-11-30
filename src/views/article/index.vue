@@ -91,13 +91,17 @@ export default {
       }
     },
     async hSwitchFollow () {
-      if (this.article.is_followed) {
-        await unFollowUser(this.article.aut_id)
-      } else {
-        await followUser(this.article.aut_id)
+      try {
+        if (this.article.is_followed) {
+          await unFollowUser(this.article.aut_id)
+        } else {
+          await followUser(this.article.aut_id)
+        }
+        this.$toast.success('操作成功')
+        this.article.is_followed = !this.article.is_followed
+      } catch {
+
       }
-      this.$toast.success('操作成功')
-      this.article.is_followed = !this.article.is_followed
     },
     async hSwitchLike () {
       if (this.article.attitude === 1) {
