@@ -7,7 +7,9 @@
       fixed
        @click-right="hRearch"
     />
-    <router-view></router-view>
+     <keep-alive >
+    <router-view ></router-view>
+     </keep-alive>
     <van-tabbar route>
       <van-tabbar-item icon="home-o"  to="/">首页</van-tabbar-item>
       <van-tabbar-item icon="chat-o"  to="/question">问答</van-tabbar-item>

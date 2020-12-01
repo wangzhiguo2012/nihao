@@ -1,5 +1,5 @@
 <template>
-  <div class="scroll-wrapper">
+  <div class="scroll-wrapper"  @scroll="hScroll" ref="refScroll">
     <van-pull-refresh v-model="isLoadingNew" @refresh="onRefresh">
       <van-list
         v-model="loading"
@@ -48,6 +48,9 @@ export default {
     }
   },
   methods: {
+    hScroll (event) {
+      this.scrollTop = event.target.scrollTop
+    },
     async onLoad () {
       if (!this.timestamp) {
         this.timestamp = Date.now()
@@ -85,7 +88,12 @@ export default {
       }
     })
   },
-  mounted () {}
+  mounted () {},
+  activated () {
+    if (this.scrollTop && this.$refs.myScroll) {
+      this.$refs.myScroll.scrollTop = this.scrollTop
+    }
+  }
 }
 </script>
 <style scoped lang='less'>
