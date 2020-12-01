@@ -1,3 +1,4 @@
+// 用户登陆
 import ajax from '@/utils/request.js'
 export const userLogin = (mobile, code) => {
   return ajax({
@@ -9,15 +10,15 @@ export const userLogin = (mobile, code) => {
     }
   })
 }
+// 用户个人信息
 export const userGetInfo = () => {
   return ajax({
     url: '/app/v1_0/user/profile',
-    method: 'GET',
-    headers: {
-      Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTE1MTg5OTgsInVzZXJfaWQiOjEsInJlZnJlc2giOmZhbHNlfQ.RoFWFm-44JktS0vuz4If2Q-OZeeFVERDdK8c6nCAUJs'
-    }
+    method: 'GET'
+
   })
 }
+// 用户编号
 export const followUser = userId => {
   return ajax({
     method: 'POST',
@@ -27,9 +28,31 @@ export const followUser = userId => {
     }
   })
 }
+// 取消关注用户
 export const unFollowUser = userId => {
   return ajax({
     method: 'DELETE',
     url: '/app/v1_0/user/followings/' + userId
+  })
+}
+// 获取用户自己的信息
+export const getInfo = () => {
+  return ajax({
+    method: 'GET',
+    url: '/app/v1_0/user'
+  })
+}
+export const updateUserInfo = data => {
+  return ajax({
+    method: 'PATCH',
+    url: '/app/v1_0/user/profile',
+    data
+  })
+}
+export const updatePhoto = (formData) => {
+  return ajax({
+    method: 'PATCH',
+    url: '/app/v1_0/user/photo',
+    data: formData
   })
 }

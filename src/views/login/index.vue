@@ -56,6 +56,7 @@ export default {
       try {
         const result = await userLogin(mobile, code)
         this.$toast.success('登陆成功')
+        this.$router.push('/')
         this.$store.commit('mSetTokenInfo', result.data.data)
       } catch (err) {
         this.$toast.fail('登陆失败')

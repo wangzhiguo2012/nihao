@@ -1,6 +1,7 @@
 <template>
    <div class='container'>
     <van-nav-bar
+     v-show="$route.path!='/user'"
       title="你好"
       right-text="搜索"
       fixed
